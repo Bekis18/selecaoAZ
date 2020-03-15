@@ -1,0 +1,21 @@
+INSERT INTO public.tb_empresa(
+	id, "razaoSocial", email, "createdAt", "updatedAt", cnpj, usuario)
+	VALUES (1, 'Indústria Tecnológica de BH', 'indtec-bh@gmail.com', '2020-01-10 15:03:00-02', '2020-01-10 15:03:00-02', '13811970000119', 'tecno_bh'),
+	
+	(2, 'Indústria Automobilística Mineira', 'autommsc@gmail.com', '2020-01-10 15:13:02-02', '2020-01-10 16:10:25-07', '76853217000106', 'automob_minas'),
+	
+	(3, 'SEGA Tecnologia e Reparos', 'support-sega@gmail.com', '2020-01-10 15:23:25-03', '2020-01-10 15:23:25-03', '45858110000127', 'sega_reparos'),
+	
+	(4, 'Tom Celulares', 'tomasdeSouza-celulares@gmail.com', '2020-01-10 15:48:30-09', '2020-01-10 15:48:30-09', '54273014000108', 'tom_celulares'),
+	
+	(5, 'Automobilística FordKar', 'automoveisFordKar@gmail.com', '2020-01-10 15:59:45-05', '2020-01-10 15:59:45-05', '21092524000120', 'fordKar'),
+	
+	(6, 'Quero-Tudo-Que-É-Seu Ltda', 'qtqes@gmail.com', '2020-01-10 16:10:25-08', '2020-01-10 16:10:25-08', '84972669000135', 'quero_tudo'),
+	
+	(7, 'HIP Notebooks', 'hip-notbook-oficial@gmail.com', '2020-01-10 16:20:14-03', '2020-01-10 16:20:14-03', '58817304000126', 'hip_notebooks'),
+	
+	(8, 'Industria de Tecnologia de SP', 'indtecnologiaa-sp@gmail.com', '2020-01-11 16:50:25-07', '2020-01-11 16:50:25-07', '20647622000113', 'tec_sp'),
+	
+	(9, 'Car James Aumobilística', 'james-car-auto@gmail.com', '2020-01-10 17:10:35-01', '2020-01-10 17:10:35-01', '91403961000100', 'car_james'),
+	
+	(10, 'Casas das Coisas', 'casa-das-coisas@gmail.com', '2020-01-10 18:07:00-09', '2020-01-10 18:07:00-09', '07960018000184', 'casaDasCoisas');

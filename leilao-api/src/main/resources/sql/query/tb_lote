@@ -1,0 +1,25 @@
+INSERT INTO public.tb_lote(
+	id, "numeroLote", descricao, quantidade, "valorInicial", unidade, leilao, "createdAt", "updatedAt")
+	VALUES (1, 1, 'Leilão de 20 unidades de Playstation 3', 20, 8000, 'Playstation 3', 1, '2020-01-10 16:10:25-07', '2020-01-10 16:10:25-07'),
+	
+	(2, 2, 'Leilão de 4 unidades de Playstation 4', 4, 4200, 'Playstation 4', 5, '2020-06-15 16:50:03-08','2020-06-17 16:00:03-08'),
+	
+	(3, 3, 'Leilão de 2 unidades Playstation 4', 2, 2700, 'Playstation 4', 8, '2020-10-10 16:00:12-03', '2020-10-10 16:00:12-03'),
+	
+	(4, 4, 'Leilão de 5 unidades de Iphone X', 1, 4000, 'Iphone X', 3, '2020-01-10 16:20:50-01', '2020-01-10 16:20:50-01'),
+	
+	(5, 5, 'Leilão de 3 unidades de Iphone X', 3, 3000, 'Iphone X', 7, '2020-07-01 17:13:19-00', '2020-07-01 17:20:21-00'),
+	
+	(6, 6, 'Leilão de 7 unidades de Moto G8 PLUS', 7, 3470, 'Moto G8 PLUS', 9, '2020-10-10 16:00:06-04', '2020-10-10 16:00:06-04'),
+	
+	(7, 7, 'Leilão de 10 unidades de MacBook Air 2017', 10, 15000, 'MacBook Air 2017', 4, '2020-10-01 16:30:01-10', '2020-01-10 16:30:01-10'),
+	
+	(8, 8, 'Leilão de 15 unidades de ProBook 440s', 15, 10000, 'ProBook 440s', 10, '2020-10-10 16:08:01-04', '2020-12-10 17:36:03-01'),
+	
+	(9, 9, 'Leilão de 2 unidades de Chevrolet Onix 2020', 2, 25000, 'Chevrolet Onix 2020', 2, '2020-01-10 16:15:00-09', '2020-01-10 16:15:00-09'), 
+	
+	(10, 10, 'Leilão de 3 unidades de Hyundai HB20 2020', 3, 50000, 'Hyundai HB20 2020', 6, '2020-07-01 17:10:19-00', '2020-07-01 17:10:19-00'),
+	
+	(11, 11, 'Leilão de 1 unidades de Ford Ka 2019', 1, 13000, 'Ford Ka 2019', 6, '2020-07-01 17:10:19-00', '2020-07-01 17:10:19-00'),
+	
+	(12, 12, 'Leilão de 2 unidades de MacBook Air 2019', 2, 4500, 'MacBook Air 2019', 10, '2020-10-10 16:08:01-04', '2020-12-10 17:36:03-01');
