@@ -5,13 +5,13 @@
     :headers="headers"
     :items="unidades"
     :search="search"
-    sort-by="calories"
+    sort-by="id"
     class="elevation-1"
   >
 
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>Unidades</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -29,9 +29,6 @@
 
 
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">ADD</v-btn>
-          </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -58,21 +55,6 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -134,31 +116,7 @@
     },
       initialize () {
         this.carregaDados()
-      },
-      editItem (item) {
-        this.editedIndex = this.unidades.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-      deleteItem (item) {
-        const index = this.unidades.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.unidades.splice(index, 1)
-      },
-      close () {
-        this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
-      },
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.unidades[this.editedIndex], this.editedItem)
-        } else {
-          this.unidades.push(this.editedItem)
-        }
-        this.close()
-      },
-    },
+      }
+    }
   }
 </script>
