@@ -89,13 +89,35 @@ export default {
 
     editedIndex: -1,
     editedItem: {
-      nome: ""
+      razaoSocial: "",
+      cnpj: "",
+      logradouro: "",
+      municipio: "",
+      numero: "",
+      complemento: "",
+      cep: "",
+      telefone: "",
+      email: "",
+      site: "",
+      usuario: "",
+      senha: ""
     },
     defaultItem: {
       id: "",
-      nome: "",
-      created_at: "",
-      update_at: ""
+      razaoSocial: "",
+      cnpj: "",
+      logradouro: "",
+      municipio: "",
+      numero: "",
+      complemento: "",
+      cep: "",
+      telefone: "",
+      email: "",
+      site: "",
+      usuario: "",
+      senha: "",
+      createdAt: "",
+      updatedAt: "",
     }
   }),
   computed: {
