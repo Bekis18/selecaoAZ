@@ -1,34 +1,14 @@
 <template>
-
-
-  <v-data-table
-    :headers="headers"
-    :items="unidades"
-    :search="search"
-    sort-by="id"
-    class="elevation-1"
-  >
-
+  <v-data-table :headers="headers" :items="unidades" sort-by="calories" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>Unidades</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
+        <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-
-
         <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on }">
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+          </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -37,11 +17,8 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.id" label="ID"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.nome" label="Nome"></v-text-field>
+                  <v-col cols="12" sm="2" md="10">
+                    <v-text-field v-model="editedItem.nome" label="Nome da unidade"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -56,6 +33,10 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+    </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
     </template>
@@ -63,60 +44,108 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-       search: '',
-      dialog: false,
-      headers: [
-        {
-          text: 'ID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-        },
+
+
+export default {
+
+  data: () => ({
+    url: "http://192.168.2.105:8081/unidades",
+    dialog: false,
+    axios : require('axios'),
+   
+    headers: [
+      {
+        text: "ID",
+        align: "start",
+        sortable: false,
+        value: "id"
+      },
       { text: "NOME", value: "nome" },
-      { text: "CREATED_AT", value: "created_at" },
-      { text: "UPDATED_AT", value: "updated_at" }
-      ],
-      
-      unidades: [],
+      { text: "CREATED_AT", value: "createdAt" },
+      { text: "UPDATED_AT", value: "updateAt" },
+      { text: "Actions", value: "actions", sortable: false }
+    ],
+    unidades: [],
 
-      formData: null,
-
-      editedIndex: -1,
-      editedItem: {
-        id: 0,
-        nome: 0,
-      },
-      defaultItem: {
-        nome: '',
-        id: 0,
-      },
-    }),
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'Nova Unidade' : 'Editar Unidade'
-      },
+    editedIndex: -1,
+    editedItem: {
+      nome: ""
     },
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-    },
-    created () {
-      this.initialize()
-    },
-    methods: {
-      carregaDados() {
-      fetch("http://localhost:8081/unidades")
+    defaultItem: {
+      id: "",
+      nome: "",
+      created_at: "",
+      update_at: ""
+    }
+  }),
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "Nova unidade" : "Editar unidade";
+    }
+  },
+  watch: {
+    dialog(val) {
+      val || this.close();
+    }
+  },
+  created() {
+    this.carregarUnidades();
+  },
+  methods: {
+    carregarUnidades() {
+      fetch(this.url)
         .then(r => r.json())
         .then(r => {
-          this.unidades = Object.values(r.bpi);
+          console.log(r);
+          this.unidades = r;
         });
     },
-      initialize () {
-        this.carregaDados()
+
+    criarUnidade(item) { 
+      this.axios.post(this.url, {  nome: item.nome });
+    },
+
+    alterarUnidade(item) {
+       this.axios.put(this.url + "/" + item.id, {  nome: item.nome });
+    },
+
+    deleteUnidade(id) { 
+      return fetch(this.url + '/' + id, {
+      method: 'DELETE'
+     })
+      .then(response => response.json());
+    },
+
+  
+    editItem(item) {
+      this.editedIndex = this.unidades.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      const index = this.unidades.indexOf(item);
+      confirm("Tem certeza que deseja deletar essa unidade?") && this.deleteUnidade(item.id) 
+      && this.unidades.splice(index, 1);
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
+    },
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.unidades[this.editedIndex], this.editedItem);
+        this.alterarUnidade(this.editedItem)
+      } else {
+        this.unidades.push(this.editedItem);
+        this.criarUnidade(this.editedItem)  
       }
+      this.close();
     }
   }
+};
 </script>
