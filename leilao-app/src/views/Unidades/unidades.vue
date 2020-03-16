@@ -49,7 +49,7 @@
 export default {
 
   data: () => ({
-    url: "http://192.168.2.105:8081/unidades",
+    url: "http://localhost/unidades",
     dialog: false,
     axios : require('axios'),
    
