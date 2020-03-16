@@ -1,16 +1,14 @@
 package br.com.selecao.locadora.entity;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.URL;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -75,9 +73,10 @@ public class Empresa implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime updatedAt;
 
+    @JsonManagedReference
     @OneToMany(targetEntity = Comprador.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "EMPRESA", referencedColumnName = "id")
-    private List<Comprador> compradores;
+    private Collection<Comprador> comprador;
 
     @Override
     public int hashCode() {
@@ -218,5 +217,13 @@ public class Empresa implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Collection<Comprador> getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(Collection<Comprador> comprador) {
+        this.comprador = comprador;
     }
 }

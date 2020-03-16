@@ -50,13 +50,9 @@ public class EmpresaBO {
         try {
             Empresa empresaAtual = buscarPorId(id);
 
-            empresaNova.setId(empresaAtual.getId());
-            empresaNova.setUsuario(empresaAtual.getUsuario());
-            empresaNova.setCnpj(empresaAtual.getCnpj());
-            empresaNova.setCreatedAt(empresaAtual.getCreatedAt());
-            empresaNova.setUpdatedAt(LocalDateTime.now());
+            empresaAtual = empresaNova;
 
-            return empresaRepository.save(empresaNova);
+            return empresaRepository.save(empresaAtual);
         } catch (Exception e) {
             return null;
         }

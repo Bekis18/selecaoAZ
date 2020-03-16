@@ -49,11 +49,12 @@ public class LoteBO {
         try {
 
             Lote loteAtual = buscarPorId(id);
+            LocalDateTime created = loteAtual.getCreatedAt();
 
-            loteNovo.setCreatedAt(loteAtual.getCreatedAt());
-            loteNovo.setUpdatedAt(LocalDateTime.now());
+            loteAtual = loteNovo;
+            loteAtual.setCreatedAt(created);
 
-            return loteRepository.save(loteNovo);
+            return loteRepository.save(loteAtual);
         } catch (Exception e) {
             return null;
         }

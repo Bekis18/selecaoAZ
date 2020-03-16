@@ -3,10 +3,12 @@ package br.com.selecao.locadora.business;
 import br.com.selecao.locadora.entity.Leilao;
 import br.com.selecao.locadora.entity.Lote;
 import br.com.selecao.locadora.repository.LeilaoRepository;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -56,14 +58,12 @@ public class LeilaoBO {
         }
     }
 
-    public boolean deletarPorId(Long id) {
+    public Leilao deletarPorId(Long id) {
         try {
             leilaoRepository.delete(id);
-            return true;
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
-            return false;
         }
+        return null;
     }
-
 }

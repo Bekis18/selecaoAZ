@@ -1,14 +1,12 @@
 package br.com.selecao.locadora.entity;
 
-
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,6 +45,9 @@ public class Leilao implements Serializable {
     @Column(name = "CREATED_AT", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @Column(name = "VALOR_TOTAL_LOTES")
+    private String valorTotalLotes;
 
     @Column(name = "UPDATED_AT", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
@@ -121,14 +122,40 @@ public class Leilao implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-
+    @JsonManagedReference
     @OneToMany(targetEntity = Lote.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "LEILAO", referencedColumnName = "ID", updatable = false)
-    private List<Lote> lotes;
+    private Collection<Lote> lotes;
 
+    public Collection<Lote> getLotes() { return lotes; }
+
+    @JsonManagedReference
     @OneToMany(targetEntity = Comprador.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "LEILAO", referencedColumnName = "ID")
-    private List<Comprador> compradores;
+    private Collection<Comprador> comprador;
 
+    public Collection<Comprador> getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(Collection<Comprador> comprador) {
+        this.comprador = comprador;
+    }
+
+    public String getValorTotalLotes() {
+        double valor = 0;
+
+        if(getLotes() != null) {
+            Collection<Lote> lotes = getLotes();
+
+            for (Lote lote : lotes) {
+                valor += lote.getQuantidade() * lote.getValorInicial();
+            }
+        }
+
+        this.valorTotalLotes = Double.toString(valor);
+
+        return this.valorTotalLotes;
+    }
 }
 

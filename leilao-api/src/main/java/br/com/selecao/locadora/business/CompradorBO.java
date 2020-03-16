@@ -46,7 +46,12 @@ public class CompradorBO {
 
     public Comprador alterarCompradorId(Long id, Comprador compradorNovo) {
         try {
-            return compradorRepository.save(compradorNovo);
+            Comprador compradorAtual = buscarPorId(id);
+
+            compradorAtual.setLeilao(compradorNovo.getLeilao());
+            compradorAtual.setEmpresa(compradorNovo.getEmpresa());
+
+            return compradorRepository.save(compradorAtual);
         } catch (Exception e) {
             return null;
         }

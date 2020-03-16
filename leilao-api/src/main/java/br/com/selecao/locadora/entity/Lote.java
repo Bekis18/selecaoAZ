@@ -1,9 +1,7 @@
 package br.com.selecao.locadora.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,6 +32,7 @@ public class Lote implements Serializable {
     @Column(name = "UNIDADE", nullable = false, length = 128)
     private String unidade;
 
+    @JsonBackReference
     @ManyToOne(targetEntity = Leilao.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "leilao", referencedColumnName = "id")
     private Leilao leilao;

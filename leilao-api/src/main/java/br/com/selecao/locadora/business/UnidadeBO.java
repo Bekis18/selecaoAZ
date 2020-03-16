@@ -3,7 +3,6 @@ package br.com.selecao.locadora.business;
 import br.com.selecao.locadora.entity.Unidade;
 import br.com.selecao.locadora.repository.UnidadeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -47,16 +46,13 @@ public class UnidadeBO {
     }
 
     public Unidade alterarUnidadeId(Long id, Unidade unidadeNova) {
-        try {
-            Unidade unidadeAtual = buscarPorId(id);
 
-            unidadeNova.setCreatedAt(unidadeAtual.getCreatedAt());
-            unidadeNova.setUpdateAt(LocalDateTime.now());
+        Unidade atual = unidadeRepository.findOne(id);
 
-            return unidadeRepository.save(unidadeNova);
-        } catch (Exception e) {
-            return null;
-        }
+        atual.setNome(unidadeNova.getNome());
+        atual.setUpdateAt(LocalDateTime.now());
+
+        return unidadeRepository.save(atual);
     }
 
     public boolean deletarPorId(Long id) {

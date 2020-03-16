@@ -1,5 +1,6 @@
 package br.com.selecao.locadora.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,10 +15,12 @@ public class Comprador implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_comprador")
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(targetEntity = Empresa.class)
     @JoinColumn(name = "EMPRESA", referencedColumnName = "ID", nullable = false)
     private Empresa empresa;
 
+    @JsonBackReference
     @ManyToOne(targetEntity = Leilao.class)
     @JoinColumn(name = "LEILAO", referencedColumnName = "ID", nullable = false)
     private Leilao leilao;
