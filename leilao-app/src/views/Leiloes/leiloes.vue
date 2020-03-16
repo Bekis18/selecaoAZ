@@ -8,7 +8,7 @@
 <script>
 export default {
   data: () => ({
-    url : "http://localhost/leilao",
+    url : "http://localhost:8081/leilao",
 
     headers: [
       {

@@ -61,7 +61,7 @@
 export default {
 
   data: () => ({
-    url: "http://localhost/empresa",
+    url: "http://localhost:8081/empresa",
     dialog: false,
     axios : require('axios'),
    
